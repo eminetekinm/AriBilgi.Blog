@@ -114,23 +114,7 @@ namespace AriBilgi.Blog.Service.Concrete
                 return new Result(500, new List<string> { "Teknik bir sorun oluştu." }, ex);
             }
         }
-        public DataResult<List<ArticleDto>> GetArticlesByCategory(int Id)
-        {
-            try
-            {
-                List<Article> article = _unitOfWork.Articles.GetAllAsync();
-                var category = new CategoryDto();
-                category.Id = Id;
-                var result = article.Where(x => x.CategoryId == Id);
-                return new DataResult<List<ArticleDto>>(200, result.ToDto().ToList(), null);
-
-            }
-            catch (Exception ex)
-            {
-
-                return new DataResult<List<ArticleDto>>(200, null, new List<string>() { "Teknik bir hata oluştu." }, ex);
-            }
-        }
+       
        
 
     }

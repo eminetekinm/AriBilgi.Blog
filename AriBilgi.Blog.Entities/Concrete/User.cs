@@ -14,6 +14,7 @@ namespace AriBilgi.Blog.Entities.Concrete
         public string Mail { get; set; }
         public string Password { get; set; }
         public int UserRoleId { get; set; }
+        public int PhoneNumber { get; set; }
 
         public UserRole UserRole { get; set; }
         public ICollection<Article> Articles { get; set; }

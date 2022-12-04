@@ -13,6 +13,8 @@ namespace AriBilgi.Blog.Entities.Concrete
         public string Content { get; set; }
         public int CategoryId { get; set; }
         public int UserId { get; set; } = 1;
+      
+
 
 
         public Category Category { get; set; }

@@ -16,6 +16,6 @@ namespace AriBilgi.Blog.Entities.Dtos
 
         public UserRoleDto UserRole { get; set; }
         public ICollection<ArticleDto> Articles { get; set; }
-        public ICollection<CommentDto> Comments { get; set; }
+     
     }
 }

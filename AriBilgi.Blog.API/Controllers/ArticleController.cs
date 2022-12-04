@@ -60,11 +60,18 @@ namespace AriBilgi.Blog.API.Controllers
             return articleManager.Update(articleUpdateDto, articleId);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("ArticleRemove")]
         public Result ArticleRemove(ArticleRemoveDto articleRemoveDto)
         {
             return articleManager.Remove(articleRemoveDto);
         }
+        [HttpGet]
+        [Route("GetAllByCategory")]
+        public DataResult<List<ArticleDto>> GetAllByCategory(int categoryId)
+        {
+            return articleManager.GetAllByCategoryId(categoryId);
+        }
+
     }
 }

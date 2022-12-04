@@ -52,11 +52,6 @@ namespace AriBilgi.Blog.API.Controllers
         {
             return categoryManager.Update(categoryUpdateDto, categoryId);
         }
-        [HttpGet]
-        [Route("ArticleGetByCategory")]
-        public DataResult<List<ArticleDto>> ArticleGetByCategory(int Id)
-        {
-            return categoryManager.GetArticlesByCategory(Id);
-        }
+       
     }
 }

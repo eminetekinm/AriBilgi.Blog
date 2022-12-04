@@ -86,6 +86,7 @@ namespace AriBilgi.Blog.Service.Concrete
             return (from a in _unitOfWork.Articles.GetAllAsync()
                     join c in _unitOfWork.Categories.GetAllAsync() on a.CategoryId equals c.Id
                     join u in _unitOfWork.Users.GetAllAsync() on a.UserId equals u.Id
+
                     select new ArticleDto
                     {
                         Id = a.Id,
@@ -94,7 +95,9 @@ namespace AriBilgi.Blog.Service.Concrete
                         Category = c.ToDto(),
                         Title = a.Title,
                         User = u.ToDto(),
-                        CreatedDate=a.CreatedDate,
+                        Comments=_unitOfWork.Comments.GetAllAsync(c=>c.ArticleId==a.Id).ToDto().ToList(),
+                        CreatedDate = a.CreatedDate,
+
                         CommentCount = _unitOfWork.Comments.CountAsync(c => c.ArticleId == a.Id)
                     }).AsEnumerable<ArticleDto>();
         }
@@ -117,8 +120,10 @@ namespace AriBilgi.Blog.Service.Concrete
         {
             try
             {
-                var article=GetAllQuery().Where(x=>x.Id==articleGetDto.Id).FirstOrDefault();
-                return new DataResult<ArticleDto>(200,article, null);
+
+
+                var article = GetAllQuery().Where(x => x.Id == articleGetDto.Id).FirstOrDefault();
+                return new DataResult<ArticleDto>(200, article, null);
             }
             catch (Exception ex)
             {
@@ -155,6 +160,20 @@ namespace AriBilgi.Blog.Service.Concrete
             }
 
 
+        }
+
+        public DataResult<List<ArticleDto>> GetAllByCategoryId(int categoryId)
+        {
+            var articles = GetAllQuery().Where(a => a.CategoryId == categoryId).ToList();
+
+            if (articles.Count > 0)
+            {
+                return new DataResult<List<ArticleDto>>(200, articles, null);
+            }
+            else
+            {
+                return new DataResult<List<ArticleDto>>(200, null, new List<string>() { "Veritabanında kayıt bulunumadı" }, null);
+            }
         }
     }
 }
